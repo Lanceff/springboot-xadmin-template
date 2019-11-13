@@ -4,20 +4,12 @@ import com.hui.status.StatusCode;
 import lombok.Data;
 
 @Data
-public class ResponseEntity<T> {
+public class ResponseEntity {
 
     private String status;
     private int code;
-    private T data;
-
-    public ResponseEntity() {
-    }
-
-    /*public ResponseEntity(T data, String status, int code) {
-        this.data = data;
-        this.status = status;
-        this.code = code;
-    }*/
+    private String msg;
+    private Object data;
 
 
     public ResponseEntity(StatusCode statusCode) {

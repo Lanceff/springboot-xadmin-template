@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hui.mapper.SysRoleMenuMapper">
+  <resultMap id="BaseResultMap" type="com.hui.entity.SysRoleMenu">
+    <!--@mbg.generated-->
+    <!--@Table sys_role_menu-->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="roles_id" jdbcType="INTEGER" property="rolesId" />
+    <result column="menu_ids" jdbcType="VARCHAR" property="menuIds" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    id, roles_id, menu_ids
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select 
+    <include refid="Base_Column_List" />
+    from sys_role_menu
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    <!--@mbg.generated-->
+    delete from sys_role_menu
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.hui.entity.SysRoleMenu">
+    <!--@mbg.generated-->
+    insert into sys_role_menu (id, roles_id, menu_ids
+      )
+    values (#{id,jdbcType=INTEGER}, #{rolesId,jdbcType=INTEGER}, #{menuIds,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.hui.entity.SysRoleMenu">
+    <!--@mbg.generated-->
+    insert into sys_role_menu
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="rolesId != null">
+        roles_id,
+      </if>
+      <if test="menuIds != null">
+        menu_ids,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="rolesId != null">
+        #{rolesId,jdbcType=INTEGER},
+      </if>
+      <if test="menuIds != null">
+        #{menuIds,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hui.entity.SysRoleMenu">
+    <!--@mbg.generated-->
+    update sys_role_menu
+    <set>
+      <if test="rolesId != null">
+        roles_id = #{rolesId,jdbcType=INTEGER},
+      </if>
+      <if test="menuIds != null">
+        menu_ids = #{menuIds,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hui.entity.SysRoleMenu">
+    <!--@mbg.generated-->
+    update sys_role_menu
+    set roles_id = #{rolesId,jdbcType=INTEGER},
+      menu_ids = #{menuIds,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

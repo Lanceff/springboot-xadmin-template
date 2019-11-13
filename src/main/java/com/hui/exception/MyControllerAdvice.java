@@ -1,7 +1,7 @@
 package com.hui.exception;
 
 import com.hui.converter.DateConverter;
-import com.hui.response.ResponseErrEntity;
+import com.hui.response.ResponseEntity;
 import com.hui.status.StatusCode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,8 +27,8 @@ public class MyControllerAdvice {
 
     @ResponseBody
     @ExceptionHandler(value = Exception.class)
-    public Object errorHandler(Exception ex) {
-        ResponseErrEntity res = new ResponseErrEntity(StatusCode.Fail);
+    public ResponseEntity errorHandler(Exception ex) {
+        ResponseEntity res = new ResponseEntity(StatusCode.Fail);
         res.setMsg(ex.getMessage());
         logger.debug(">>>>>ERROR:" + ex.getMessage());
         return res;
