@@ -23,7 +23,7 @@
 <div class="login layui-anim layui-anim-up">
     <div class="message">管理登录</div>
     <div id="darkbannerwrap"></div>
-    <form method="post" th:action="@{/checkLogin}" class="layui-form">
+    <form method="post" class="layui-form">
         <input name="username" placeholder="用户名" type="text" lay-verify="required" class="layui-input">
         <hr class="hr15">
         <input name="password" lay-verify="required" placeholder="密码" type="password" class="layui-input">
@@ -34,13 +34,20 @@
 </div>
 <script th:inline="javascript">
     $(function () {
-        layui.use(['layer','form'], function () {
-            var layer = layui.layer,form = layui.form;
-            var errmsg = [[${err}]];
-            if(errmsg!=null){
-                layer.alert(errmsg);
-            }
-        });
+        layui.use(['layer', 'form'], function () {
+            let form = layui.form, layer = layui.layer;
+            form.on('submit(login)', function (data) {
+                $.post("/xAdmin/checkLogin", data.field, function (res) {
+                    if (res.code == 200) {
+                        window.location.href = "/xAdmin/index";
+                    } else {
+                        setTimeout(function () {
+                            layer.alert(res.err);
+                        }, 2000);
+                    }
+                });
+            });
+        })
     });
 </script>
 <!-- 底部结束 -->

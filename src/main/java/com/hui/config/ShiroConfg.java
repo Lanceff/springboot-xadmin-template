@@ -1,14 +1,18 @@
 package com.hui.config;
 
 import at.pollux.thymeleaf.shiro.dialect.ShiroDialect;
+import com.hui.filter.MyFormAuthenticationFilter;
 import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
 import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
+import org.apache.shiro.web.mgt.CookieRememberMeManager;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
+import org.apache.shiro.web.servlet.SimpleCookie;
 import org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import javax.servlet.Filter;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -42,6 +46,30 @@ public class ShiroConfg {
     }
 
     /**
+     * cookie对象;
+     * @return
+     */
+    @Bean
+    public SimpleCookie rememberMeCookie(){
+        //这个参数是cookie的名称，对应前端的checkbox的name = rememberMe
+        SimpleCookie simpleCookie = new SimpleCookie("rememberMe");
+        //<!-- 记住我cookie生效时间15天 ,单位秒;-->
+        simpleCookie.setMaxAge(1296000);
+        return simpleCookie;
+    }
+
+    /**
+     * cookie管理对象;记住我功能
+     * @return
+     */
+    @Bean
+    public CookieRememberMeManager rememberMeManager(){
+        CookieRememberMeManager cookieRememberMeManager = new CookieRememberMeManager();
+        cookieRememberMeManager.setCookie(rememberMeCookie());
+        return cookieRememberMeManager;
+    }
+
+    /**
      * 安全管理器
      * 注：使用shiro-spring-boot-starter 1.4时，返回类型是SecurityManager会报错，直接引用shiro-spring则不报错
      *
@@ -51,6 +79,7 @@ public class ShiroConfg {
     public DefaultWebSecurityManager securityManager() {
         DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager();
         securityManager.setRealm(userRealm());
+        securityManager.setRememberMeManager(rememberMeManager());
         return securityManager;
     }
 
@@ -75,9 +104,9 @@ public class ShiroConfg {
         shiroFilterFactoryBean.setSecurityManager(securityManager());
 
         //自定义filter
-        /*Map<String, Filter> filters = shiroFilterFactoryBean.getFilters();
+        Map<String, Filter> filters = shiroFilterFactoryBean.getFilters();
         filters.put("authc", new MyFormAuthenticationFilter());
-        shiroFilterFactoryBean.setFilters(filters);*/
+        shiroFilterFactoryBean.setFilters(filters);
 
         //拦截器
         Map<String,String> filterChainDefinitionMap = new LinkedHashMap<String,String>();

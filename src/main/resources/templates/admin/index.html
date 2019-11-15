@@ -27,7 +27,7 @@
 <!-- 顶部开始 -->
 <div class="container">
     <div class="logo">
-        <a th:href="@{/index}">X-admin v2.2</a></div>
+        <a th:href="@{/index}">xxx后台管理系统</a></div>
     <div class="left_open">
         <a><i title="展开左侧栏" class="iconfont">&#xe699;</i></a>
     </div>
@@ -56,7 +56,7 @@
     </ul>
     <ul class="layui-nav right" lay-filter="">
         <li class="layui-nav-item">
-            <a href="javascript:;">admin</a>
+            <a href="javascript:;">[[${session.username}]]</a>
             <dl class="layui-nav-child">
                 <!-- 二级菜单 -->
                 <dd>
@@ -141,7 +141,7 @@
                     </li>
                 </ul>
             </li>
-            <li>
+            <li shiro:hasRole="admin">
                 <a href="javascript:;">
                     <i class="iconfont left-nav-li" lay-tips="分类管理">&#xe723;</i>
                     <cite>分类管理</cite>
@@ -154,7 +154,7 @@
                     </li>
                 </ul>
             </li>
-            <li>
+            <li shiro:hasRole="admin">
                 <a href="javascript:;">
                     <i class="iconfont left-nav-li" lay-tips="城市联动">&#xe723;</i>
                     <cite>城市联动</cite>
@@ -166,8 +166,8 @@
                             <cite>三级地区联动</cite></a>
                     </li>
                 </ul>
-            </li>
-            <li>
+            </li >
+            <li shiro:hasRole="xadmin">
                 <a href="javascript:;">
                     <i class="iconfont left-nav-li" lay-tips="管理员管理">&#xe726;</i>
                     <cite>管理员管理</cite>
@@ -195,7 +195,7 @@
                     </li>
                 </ul>
             </li>
-            <li>
+            <li shiro:hasRole="admin">
                 <a href="javascript:;">
                     <i class="iconfont left-nav-li" lay-tips="系统统计">&#xe6ce;</i>
                     <cite>系统统计</cite>
@@ -256,7 +256,7 @@
                     </li>
                 </ul>
             </li>
-            <li>
+            <li shiro:hasRole="admin">
                 <a href="javascript:;">
                     <i class="iconfont left-nav-li" lay-tips="其它页面">&#xe6b4;</i>
                     <cite>其它页面</cite>
